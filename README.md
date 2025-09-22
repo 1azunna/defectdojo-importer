@@ -118,7 +118,7 @@ Defectdojo importer also supports integrating with external tools to push findin
 defectdojo-importer integration dtrack --api-url <defectdojo url> --api-key <apikey> --product-name myapp --product-type-name webapps --dtrack-api-url <dependency-track url> --dtrack-api-key <dependency-track apikey>
 ```
 
-See `defectdojo-importer integration dtrack --help` additional options. 
+See `defectdojo-importer integration dtrack --help` for additional options. 
 If you would like to support a tool you are using, please open an issue.
 
 
@@ -131,7 +131,7 @@ Defectdojo-importer tries to detect the following attributes when running in a C
   - pipeline job/build id
   - repository url
 
-See: [src/common/utils.py](./src/common/utils.py)
+See: [src/common/utils.py](./src/common/utils.py#L44)
 
 ### Gitlab CI Usage
 
@@ -210,6 +210,21 @@ upload_semgrep:
 Open a pull request.
 
 ### Development Guide
+
+#### Prerequisites
+
+1. Setup a python virtual environment using pyenv/venv
+
+```bash
+pyenv virtualenv 3.13 defectdojo-importer
+pyenv activate
+```
+
+2. Install poetry
+
+```bash
+pip install poetry
+```
 
 #### Step 1: Setup Githooks
 

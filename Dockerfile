@@ -1,28 +1,41 @@
-FROM python:3.13-alpine
+# Build stage
+FROM python:3.13-alpine AS builder
+
+ARG APP_DIR=/app
+
+WORKDIR ${APP_DIR}
+
+# Install build dependencies
+RUN apk update && apk add --no-cache git build-base
+
+# Copy source and build configuration
+COPY . .
+
+# Build the wheel
+RUN pip install --no-cache-dir wheel poetry && \
+    poetry build
+
+# Runtime stage
+FROM python:3.13-alpine AS runtime
 
 LABEL owner="Azunna Ikonne <ikonnea@gmail.com>"
 LABEL maintainer="Azunna Ikonne <ikonnea@gmail.com>"
 
-ARG APP_DIR=/app
 ARG DATA_DIR=/data
 ARG USERNAME=defectdojo-importer
 
-ENV VERSION=0.1
+# Create user and directories
+RUN adduser -D -h ${DATA_DIR} -u 1000 ${USERNAME} && \
+    chown -R ${USERNAME}:${USERNAME} ${DATA_DIR}
 
-# Perform package updates and create user
-# hadolint ignore=DL3018,SC2086
-RUN adduser -D -h ${DATA_DIR} -u 1000 ${USERNAME} \
-    && mkdir ${APP_DIR} \
-    && chown -R ${USERNAME}:${USERNAME} ${DATA_DIR} ${APP_DIR} ;\
-    apk update && apk add --no-cache git
+# Copy built wheel from builder stage
+COPY --from=builder /app/dist/*.whl /tmp/
 
-WORKDIR ${APP_DIR}
-COPY . .
-RUN pip install --no-cache-dir wheel poetry ;\
-    poetry build ;\
-    pip install dist/*.whl
+# Install the application
+RUN pip install --no-cache-dir /tmp/*.whl && \
+    rm -rf /tmp/*.whl
 
 WORKDIR ${DATA_DIR}
-
 USER ${USERNAME}
-ENTRYPOINT [ "defectdojo-importer" ]
+
+ENTRYPOINT ["defectdojo-importer"]

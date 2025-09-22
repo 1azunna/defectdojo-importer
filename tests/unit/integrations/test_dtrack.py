@@ -8,16 +8,11 @@ from models.config import Config
 
 
 @pytest.fixture
-def mock_http_client():
-    client = Mock(spec=HttpClient)
-    client.url = "https://dtrack.example.com"
-    client.logger = Mock()
-    client.headers = {}
-    return client
-
-
-@pytest.fixture
 def dtrack_client(mock_http_client):
+    # Configure the mock_http_client
+    mock_http_client.url = "https://dtrack.example.com"
+    mock_http_client.logger = Mock()
+    mock_http_client.headers = {}
     return Dtrack(mock_http_client, "test-api-key")
 
 

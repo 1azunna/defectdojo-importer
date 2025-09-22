@@ -50,6 +50,7 @@ autohooks = "^23.4.0"
 autohooks-plugin-black = "^23.4.0"
 autohooks-plugin-pylint = "^23.4.0"
 autohooks-plugin-pytest = "^23.4.0"
+pytest-mock = "^3.15.1"
 
 [tool.poetry.scripts]
 defectdojo-importer = 'execute:main'

@@ -1,5 +1,6 @@
+import json
 from datetime import date
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from enum import Enum
 
 
@@ -25,3 +26,16 @@ class Engagement:
     build_id: str | None = None
     commit_hash: str | None = None
     branch_tag: str | None = None
+
+    def to_dict(self):
+        result = {}
+        for key, value in asdict(self).items():
+            if value is not None:
+                if key == "status":
+                    result[key] = value.value
+                else:
+                    result[key] = value
+        return result
+
+    def to_json(self):
+        return json.dumps(self.to_dict())

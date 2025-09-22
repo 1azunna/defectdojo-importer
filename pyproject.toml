@@ -28,9 +28,18 @@ classifiers = [
     "Programming Language :: Python :: 3"
 ]
 
+packages = [
+    { include = "defectdojo", from = "src" },
+    { include = "integrations", from = "src" },
+    { include = "models", from = "src" },
+    { include = "common", from = "src" },
+    { include = "importer", from = "src" }
+]
+
 [tool.poetry.dependencies]
 python = ">=3.9,<4"
 requests = "^2.32.5"
+python-dotenv = "^1.1.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = ">=7.3.1"
@@ -43,7 +52,7 @@ autohooks-plugin-pylint = "^23.4.0"
 autohooks-plugin-pytest = "^23.4.0"
 
 [tool.poetry.scripts]
-importer = 'importer.__main__:main'
+defectdojo-importer = 'execute:main'
 
 [tool.poetry-dynamic-versioning]
 enable = true

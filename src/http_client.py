@@ -14,7 +14,7 @@ class HttpClient:
     def __init__(
         self,
         url: str,
-        headers: dict = None,
+        headers: dict | None = None,
         ssl_verify: bool = True,
         logger: Logger = Logger(__name__),
     ):
@@ -27,7 +27,7 @@ class HttpClient:
         """Handle HTTP requests for different methods."""
         headers = self.headers
         if "headers" in kwargs:
-            headers = self.headers | kwargs.get("headers")
+            headers = {**(self.headers or {}), **(kwargs.get("headers") or {})}
             del kwargs["headers"]
 
         # Set default timeout based on method

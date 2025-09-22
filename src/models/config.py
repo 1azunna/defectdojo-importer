@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from .common import SeverityLevel
+from .common import SeverityLevel, ReimportConditions
 
 
 @dataclass
@@ -13,6 +13,8 @@ class Config:
     engagement_name: str = "CI/CD Engagement"
     test_name: str | None = None
     test_type_name: str | None = None
+    tool_configuration_name: str | None = None
+    tool_configuration_params: str | None = None
     static_tool: bool = False
     dynamic_tool: bool = False
     minimum_severity: SeverityLevel = SeverityLevel.INFO
@@ -22,6 +24,9 @@ class Config:
     commit_hash: str | None = None
     branch_tag: str | None = None
     scm_uri: str | None = None
+    reimport: bool = False
+    reimport_condition: ReimportConditions = ReimportConditions.DEFAULT
+    debug: bool = False
     dtrack_api_url: str | None = None
     dtrack_api_key: str | None = None
     dtrack_project_name: str | None = None

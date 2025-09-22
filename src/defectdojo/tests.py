@@ -27,10 +27,10 @@ class Tests:
             test_data = json.loads(response)
             count = test_data["count"]
         except Exception as err:
-            self.logger.error("An error occured while getting test %s.", test.title)
+            self.logger.error(f"An error occured while getting test {test.title}.", exc_info=True)
             raise err
         if count < 1:
-            self.logger.warning("Test %s not found. Will be created", test.title)
+            self.logger.warning(f"Test {test.title} not found. Will be created")
             return None
         result = max(test_data["results"], key=lambda ev: ev["id"])
         test_id = result["id"]

@@ -26,31 +26,31 @@ class Engagements:
             count = engagement_data["count"]
         except Exception as err:
             self.logger.error(
-                "An error occured while getting engagement for name %s.",
-                engagement.name,
+                f"An error occured while getting engagement for name {engagement.name}.",
+                exc_info=True
             )
             raise err
         if count < 1:
-            self.logger.warning("Engagement not found for name %s.", engagement.name)
+            self.logger.warning(f"Engagement not found for name {engagement.name}.")
             return None
         result = max(engagement_data["results"], key=lambda ev: ev["id"])
         engagement_id = result["id"]
-        self.logger.info("Engagement found, id: %s", engagement_id)
+        self.logger.info(f"Engagement found, id: {engagement_id}")
         return engagement_id
 
     def create(self, engagement: Engagement) -> int:
         """Create an engagement."""
-        response = self.client.request("POST", self.endpoint, data=engagement.to_json())
+        response = self.client.request("POST", self.endpoint, data=engagement.to_dict())
         try:
             engagement_data = json.loads(response)
             engagement_id = engagement_data["id"]
         except Exception as err:
             self.logger.error(
-                "An error occured while creating engagement for name %s.",
-                engagement.name,
+                f"An error occured while creating engagement for name {engagement.name}.",
+                exc_info=True
             )
             raise err
-        self.logger.info("Engagement created, id: %s", engagement_id)
+        self.logger.info(f"Engagement created, id: {engagement_id}")
         return engagement_id
 
     def get_or_create(self, engagement: Engagement) -> int:

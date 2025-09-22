@@ -17,9 +17,8 @@ class Scans:
         try:
             self.client.request("POST", endpoint, data=scan.to_dict(), files=files)
             self.logger.info("Scan report imported successfully")
-        except Exception as err:
-            self.logger.error("Import Failed!")
-            raise err
+        except Exception:
+            self.logger.error("Import Failed!", exc_info=True)
 
     def reupload(self, scan: Scan, files: list):
         """Re-imports scan findings."""
@@ -27,6 +26,5 @@ class Scans:
         try:
             self.client.request("POST", endpoint, data=scan.to_dict(), files=files)
             self.logger.info("Scan report re-imported successfully")
-        except Exception as err:
-            self.logger.error("Re-import Failed!")
-            raise err
+        except Exception:
+            self.logger.error("Re-import Failed!", exc_info=True)

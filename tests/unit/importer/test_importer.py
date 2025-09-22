@@ -11,8 +11,8 @@ class TestImporter:
         assert "usage:" in captured.out
         assert exc_info.value.code == 0
 
-    def test_invalid_config_no_file(self, capsys, caplog):
-        """Test that invalid config (missing file) causes SystemExit with error message."""
+    def test_invalid_config(self, capsys, caplog):
+        """Test that invalid config (eg. missing file) causes SystemExit with error message."""
         import logging
 
         args = ["-v"]

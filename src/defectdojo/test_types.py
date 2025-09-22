@@ -19,14 +19,14 @@ class TestTypes:
             test_type_data = json.loads(response)
             count = test_type_data["count"]
         except Exception as err:
-            self.logger.error("An error occured while getting test type %s.", test_type.name)
+            self.logger.error(f"An error occured while getting test type {test_type.name}.", exc_info=True)
             raise err
         if count < 1:
-            self.logger.warning("Test type %s not found", test_type.name)
+            self.logger.warning(f"Test type {test_type.name} not found")
             return None
         result = max(test_type_data["results"], key=lambda ev: ev["id"])
         test_type_id = result["id"]
-        self.logger.info("Test type found, id: %s", test_type_id)
+        self.logger.info(f"Test type found, id: {test_type_id}")
         return test_type_id
 
     def create(self, test_type: TestType) -> int:
@@ -36,9 +36,9 @@ class TestTypes:
             test_type_data = json.loads(response)
             test_type_id = test_type_data["id"]
         except Exception as err:
-            self.logger.error("An error occured while creating test type %s.", test_type.name)
+            self.logger.error(f"An error occured while creating test type {test_type.name}.", exc_info=True)
             raise err
-        self.logger.info("Test type successfully created, id: %s", test_type_id)
+        self.logger.info(f"Test type successfully created, id: {test_type_id}")
         return test_type_id
 
     def get_or_create(self, test_type: TestType) -> int:

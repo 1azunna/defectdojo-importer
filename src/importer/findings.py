@@ -24,7 +24,7 @@ def setup_product_engagement(defectdojo: DefectDojo, config: Config) -> dict:
 
     # Get Engagement
     engagement = Engagement(
-        config.engagement_name,
+        str(config.engagement_name),
         product_id,
         build_id=config.build_id,
         commit_hash=config.commit_hash,
@@ -51,9 +51,8 @@ def setup_test(defectdojo: DefectDojo, config: Config, engagement_config: dict) 
         raise InvalidScanType(f"Test type '{config.test_type_name}' is not valid.")
 
     # Get Test
-    test_name = str(config.test_name) or str(config.test_type_name)
     test = Test(
-        test_name,
+        str(config.test_name),
         engagement_config["engagement_id"],
         valid_test_type,
         build_id=config.build_id,
@@ -81,8 +80,6 @@ def setup_test(defectdojo: DefectDojo, config: Config, engagement_config: dict) 
     return {
         "test_id": test_id,
         "test_type_id": valid_test_type,
-        "test_name": test_name,
-        "test_metadata": test_metadata,
     }
 
 
@@ -113,11 +110,11 @@ def import_findings(
         api_scan_id = defectdojo.product_api_scan_configuration.get_or_create(api_scan)
 
     scan = Scan(
-        test_config["test_name"],
+        config.test_type_name,
         config.product_name,
-        test_config["test_name"],
+        str(config.test_name),
         engagement_config["engagement_id"],
-        config.engagement_name,
+        str(config.engagement_name),
         test=test_config["test_id"],
         api_scan_id=api_scan_id,
         push_to_jira=config.push_to_jira,

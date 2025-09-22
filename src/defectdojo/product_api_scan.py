@@ -17,18 +17,18 @@ class ProductApiScan:
             count = api_scan_data["count"]
         except Exception as err:
             self.logger.error(
-                "An error occured while getting api scan configuration for product ID %s.",
-                api_scan_config.product,
+                f"An error occured while getting api scan configuration for product ID {api_scan_config.product}.",
+                exc_info=True,
             )
             raise err
         if count < 1:
             self.logger.warning(
-                "API scan configuration not found for product ID %s.", api_scan_config.product
+                f"API scan configuration not found for product ID {api_scan_config.product}.", 
             )
             return None
         result = max(api_scan_data["results"], key=lambda ev: ev["id"])
         api_scan_id = result["id"]
-        self.logger.info("API scan configuration, id: %s", api_scan_id)
+        self.logger.info(f"API scan configuration, id: {api_scan_id}")
         return api_scan_id
 
     def create(self, api_scan_config: ApiScanConfig) -> int:
@@ -39,11 +39,11 @@ class ProductApiScan:
             api_scan_id = api_scan_data["id"]
         except Exception as err:
             self.logger.error(
-                "An error occured while creating api scan configuration for product ID %s.",
-                api_scan_config.product,
+                f"An error occured while creating api scan configuration for product ID {api_scan_config.product}.",
+                exc_info=True,
             )
             raise err
-        self.logger.info("API scan configuration created, id: %s", api_scan_id)
+        self.logger.info(f"API scan configuration created, id: {api_scan_id}")
         return api_scan_id
 
     def get_or_create(self, api_scan_config: ApiScanConfig) -> int:

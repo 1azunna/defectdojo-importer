@@ -18,5 +18,4 @@ class Languages:
             self.client.request("POST", endpoint, data={"product": product}, files=files)
             self.logger.info("Language report imported successfully")
         except Exception as err:
-            self.logger.error("Import Failed!")
-            raise err
+            self.logger.error("Import Failed!", exc_info=True)

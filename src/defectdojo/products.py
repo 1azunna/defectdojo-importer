@@ -18,12 +18,11 @@ class Products:
             count = product_data["count"]
         except Exception as err:
             self.logger.error(
-                "An error occured while getting product for name %s.",
-                product.name,
+                f"An error occured while getting product for name {product.name}.", exc_info=True
             )
             raise err
         if count < 1:
-            self.logger.warning("Product not found for name %s.", product.name)
+            self.logger.warning(f"Product not found for name {product.name}.")
             return None
         result = max(product_data["results"], key=lambda ev: ev["id"])
         product_id = result["id"]
@@ -36,13 +35,12 @@ class Products:
         try:
             product_data = json.loads(response)
             product_id = product_data["id"]
-        except Exception as err:
+        except Exception:
             self.logger.error(
-                "An error occured while creating product for name %s.",
-                product.name,
+                f"An error occured while creating product for name {product.name}.",
+                exc_info=True
             )
-            raise err
-        self.logger.info("Product created, id: %s", product_id)
+        self.logger.info(f"Product created, id: {product_id}")
         return product_id
 
     def get_or_create(self, product: Product) -> int:

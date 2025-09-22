@@ -9,7 +9,7 @@ dtrack_url = "https://dtrack.example.test"
 mock_url = re.compile(dojo_url + "/api/v2/(?!import-scan|reimport-scan).*")
 dtrack_url_property = re.compile(dtrack_url + "/api/v1/project/(.*)/property")
 dtrack_url_config_property = re.compile(dtrack_url + "/api/v1/configProperty(.*)")
-dtrack_args = ["-v", "integration", "dtrack"]
+dtrack_args = ["integration", "dtrack", "-v"]
 
 
 @patch("sys.argv", ["defectdojo-importer"] + dtrack_args)

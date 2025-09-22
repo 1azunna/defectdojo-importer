@@ -133,11 +133,17 @@ Defectdojo-importer tries to detect the following attributes when running in a C
 
 See: [src/common/utils.py](./src/common/utils.py#L44)
 
+### Environment variables
+
+You can configure the importer using environment variables and dotenv files (.env, .env.defectdojo). 
+The variable pattern is as follows: `DD_<cli argument with underscores>`. For example `DD_API_URL`, `DD_API_KEY`. 
+For Debug mode, use `DD_DEBUG` or the `-v/--verbose` cli argument.
+
 ### Gitlab CI Usage
 
 Set the following parameters as protected variables.
 ```
-DD_URL
+DD_API_URL
 DD_API_KEY
 ```
 

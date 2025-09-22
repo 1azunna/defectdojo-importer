@@ -6,13 +6,12 @@ from .validations import validate_config
 from arguments import main_parser
 from http_client import HttpClient
 from defectdojo import DefectDojo
-from config import env_config, defectdojo_config, dtrack_integration_config
 from models.exceptions import ConfigurationError
 
 LOGGER_NAME = "defectdojo_importer"
 logging.basicConfig(format="%(levelname)s - %(message)s")
 logger = logging.getLogger(LOGGER_NAME)
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 logger.propagate = True
 
 
@@ -25,13 +24,11 @@ class Importer:
         else:
             parsed_args = main_parser().parse_args(args)
             try:
-                config = validate_config(parsed_args, env_config())
+                config = validate_config(parsed_args)
             except ConfigurationError as e:
                 main_parser().print_help()
                 logger.error(f"Configuration error: {e}")
                 sys.exit(1)
-
-            print(defectdojo_config(config), flush=True)
             client = HttpClient(config.api_url, ssl_verify=parsed_args.insecure, logger=logger)
             defectdojo = DefectDojo(client, config.api_key)
             engagement_config = setup_product_engagement(defectdojo, config)
@@ -39,7 +36,6 @@ class Importer:
             if parsed_args.sub_command == "integration":
                 match parsed_args.integration_type:
                     case "dtrack":
-                        logger.info(dtrack_integration_config(config))
                         client = HttpClient(
                             str(config.dtrack_api_url),
                             ssl_verify=parsed_args.insecure,

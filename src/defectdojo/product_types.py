@@ -18,16 +18,16 @@ class ProductTypes:
             count = product_type_data["count"]
         except Exception as err:
             self.logger.error(
-                "An error occured while getting product type for name %s.",
-                product_type.name,
+                f"An error occured while getting product type for name {product_type.name}.",
+                exc_info=True
             )
             raise err
         if count < 1:
-            self.logger.warning("Product type not found for name %s.", product_type.name)
+            self.logger.warning(f"Product type not found for name {product_type.name}")
             return None
         result = max(product_type_data["results"], key=lambda ev: ev["id"])
         product_type_id = result["id"]
-        self.logger.info("Product type found, id: %s", product_type_id)
+        self.logger.info(f"Product type found, id: {product_type_id}")
         return product_type_id
 
     def create(self, product_type: ProductType) -> int:
@@ -38,11 +38,11 @@ class ProductTypes:
             product_type_id = product_type_data["id"]
         except Exception as err:
             self.logger.error(
-                "An error occured while creating product type for name %s.",
-                product_type.name,
+                f"An error occured while creating product type for name {product_type.name}.",
+                exc_info=True
             )
             raise err
-        self.logger.info("Product type created, id: %s", product_type_id)
+        self.logger.info(f"Product type created, id: {product_type_id}")
         return product_type_id
 
     def get_or_create(self, product_type: ProductType) -> int:

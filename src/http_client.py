@@ -41,9 +41,10 @@ class HttpClient:
             )
             response.raise_for_status()
         except HTTPError as http_err:
+            self.logger.error(f"{http_err} - {response.text}", exc_info=True)
             raise http_err
         except Exception as err:
-            self.logger.exception("Could not make request.")
+            self.logger.error(f"Could not make request. \n{err}")
             raise err
         self.logger.debug(response.text)
         return response.text

@@ -1,10 +1,8 @@
 import json
 import pytest
-from unittest.mock import Mock, patch
-from http_client import HttpClient
+from unittest.mock import Mock
 from integrations.dtrack import Dtrack
 from models.dtrack import Project, ProjectProperty
-from models.config import Config
 
 
 @pytest.fixture
@@ -14,16 +12,6 @@ def dtrack_client(mock_http_client):
     mock_http_client.logger = Mock()
     mock_http_client.headers = {}
     return Dtrack(mock_http_client, "test-api-key")
-
-
-@pytest.fixture
-def sample_config():
-    return Config(
-        api_url="https://defectdojo.example.com",
-        api_key="dd-api-key",
-        product_name="Test Product",
-        product_type_name="Test Product Type",
-    )
 
 
 @pytest.fixture
@@ -119,11 +107,11 @@ class TestDtrack:
             "An error occured while checking the integration status."
         )
 
-    def test_update_integration_success(self, dtrack_client, mock_http_client, sample_config):
+    def test_update_integration_success(self, dtrack_client, mock_http_client, mock_config):
         """Test update_integration successful update."""
         mock_http_client.request.return_value = "{}"
 
-        result = dtrack_client.update_integration(sample_config)
+        result = dtrack_client.update_integration(mock_config)
 
         assert result is True
         mock_http_client.request.assert_called_once()
@@ -137,7 +125,7 @@ class TestDtrack:
             {
                 "groupName": "integrations",
                 "propertyName": "defectdojo.apiKey",
-                "propertyValue": sample_config.api_key,
+                "propertyValue": mock_config.api_key,
                 "propertyType": "STRING",
             },
             {
@@ -155,7 +143,7 @@ class TestDtrack:
             {
                 "groupName": "integrations",
                 "propertyName": "defectdojo.url",
-                "propertyValue": sample_config.api_url,
+                "propertyValue": mock_config.api_url,
                 "propertyType": "URL",
             },
         ]
@@ -164,12 +152,12 @@ class TestDtrack:
             "Dependency Track integration has been enabled."
         )
 
-    def test_update_integration_error(self, dtrack_client, mock_http_client, sample_config):
+    def test_update_integration_error(self, dtrack_client, mock_http_client, mock_config):
         """Test update_integration when request fails."""
         mock_http_client.request.side_effect = Exception("API Error")
 
         with pytest.raises(Exception):
-            dtrack_client.update_integration(sample_config)
+            dtrack_client.update_integration(mock_config)
 
         mock_http_client.logger.error.assert_called_with(
             "An error occured while updating the integration config. Check API key permissions or enable the integration manually"

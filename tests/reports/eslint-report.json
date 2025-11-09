@@ -1,0 +1,50 @@
+[
+    {
+        "filePath": "/data/.eslintrc.js",
+        "messages": [
+            {
+                "ruleId": "comma-dangle",
+                "severity": 2,
+                "message": "Unexpected trailing comma.",
+                "line": 8,
+                "column": 31,
+                "nodeType": "Literal",
+                "messageId": "unexpected",
+                "endLine": 8,
+                "endColumn": 32,
+                "fix": {
+                    "range": [
+                        183,
+                        184
+                    ],
+                    "text": ""
+                }
+            },
+            {
+                "ruleId": "no-trailing-spaces",
+                "severity": 2,
+                "message": "Trailing spaces not allowed.",
+                "line": 13,
+                "column": 24,
+                "nodeType": "Program",
+                "messageId": "trailingSpace",
+                "endLine": 13,
+                "endColumn": 25,
+                "fix": {
+                    "range": [
+                        317,
+                        318
+                    ],
+                    "text": ""
+                }
+            }
+        ],
+        "errorCount": 2,
+        "fatalErrorCount": 0,
+        "warningCount": 0,
+        "fixableErrorCount": 2,
+        "fixableWarningCount": 0,
+        "source": "/*\n * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.\n * SPDX-License-Identifier: MIT\n */\n\nmodule.exports = {\n  extends: [\n    'standard-with-typescript',\n    // 'plugin:security-node/recommended',\n    // 'plugin:anti-trojan-source/recommended',\n  ],\n  plugins: [\n    // 'security-node', \n    // 'anti-trojan-source',\n  ],\n  env: {\n    browser: true,\n    node: true,\n    jasmine: true,\n    mocha: true,\n    jest: true\n  },\n  globals: {\n    Atomics: 'readonly',\n    SharedArrayBuffer: 'readonly'\n  },\n  parserOptions: {\n    ecmaVersion: 2018,\n    project: './tsconfig.json'\n  },\n  ignorePatterns: [\n    'app/private/**',\n    'vagrant/**',\n    'frontend/**',\n    'data/static/codefixes/**',\n    'dist/**'\n  ],\n  overrides: [\n    {\n      files: ['**/*.ts'],\n      parser: '@typescript-eslint/parser',\n      rules: {\n        'no-void': 'off', // conflicting with recommendation from @typescript-eslint/no-floating-promises\n        // FIXME warnings below this line need to be checked and fixed. Line end comments below are number of findings per rule on 02.05.2022\n        '@typescript-eslint/no-misused-promises': 'off', // 1\n        '@typescript-eslint/explicit-function-return-type': 'off', // 197\n        '@typescript-eslint/restrict-plus-operands': 'off', // 250\n        '@typescript-eslint/strict-boolean-expressions': 'off', // 337\n        '@typescript-eslint/restrict-template-expressions': 'off', // 395\n        '@typescript-eslint/no-var-requires': 'off' // 509\n      }\n    }\n  ]\n}\n",
+        "usedDeprecatedRules": []
+    }
+]

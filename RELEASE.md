@@ -1,1 +1,0 @@
-# Defectdojo-Importer Releases

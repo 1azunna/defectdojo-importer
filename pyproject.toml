@@ -4,7 +4,7 @@ build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry]
 name = "defectdojo-importer"
-version = "0.0.1"
+version = "0.0.2"
 description = "DefectDojo Importer Tool"
 license = "Proprietary"
 authors = [
@@ -14,7 +14,7 @@ maintainers = [
    "Azunna Ikonne <ikonnea@gmail.com>"
 ]
 
-readme = "RELEASE.md"
+readme = "README.md"
 repository = "https://github.com/1azunna/defectdojo-importer"
 
 keywords = ["DefectDojo"]

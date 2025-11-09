@@ -13,12 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
-
-      - name: fetch main
-        run: git fetch origin main:main --update-head-ok
 
       - name: Get changed files
         id: changed-files
@@ -52,8 +46,6 @@ jobs:
       - name: Install project
         run: poetry install --no-interaction
 
-      - name: Build wheel and source distribution
-        run: poetry build
       - name: Run linting
         env:
           CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}

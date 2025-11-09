@@ -34,7 +34,7 @@ jobs:
     - name: Install the project dependencies
       run: poetry install
     - name: Build wheel and source distribution
-      run: poetry build
+      run: poetry build -f sdist
     - name: Store the distribution packages
       uses: actions/upload-artifact@v4
       with:

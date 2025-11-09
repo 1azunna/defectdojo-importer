@@ -23,7 +23,7 @@ class ProductApiScan:
             raise err
         if count < 1:
             self.logger.warning(
-                f"API scan configuration not found for product ID {api_scan_config.product}.", 
+                f"API scan configuration not found for product ID {api_scan_config.product}.",
             )
             return None
         result = max(api_scan_data["results"], key=lambda ev: ev["id"])

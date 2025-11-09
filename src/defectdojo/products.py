@@ -37,8 +37,7 @@ class Products:
             product_id = product_data["id"]
         except Exception:
             self.logger.error(
-                f"An error occured while creating product for name {product.name}.",
-                exc_info=True
+                f"An error occured while creating product for name {product.name}.", exc_info=True
             )
         self.logger.info(f"Product created, id: {product_id}")
         return product_id

@@ -28,10 +28,10 @@ class Dtrack:
             self.logger.error("An error occured while checking the integration status.")
             raise err
 
-        for property in config_data:
-            if property["groupName"] == "integrations":
-                if property["propertyName"] == "defectdojo.enabled":
-                    enabled = property["propertyValue"].lower()
+        for config_property in config_data:
+            if config_property["groupName"] == "integrations":
+                if config_property["propertyName"] == "defectdojo.enabled":
+                    enabled = config_property["propertyValue"].lower()
                 break
         if enabled != "true":
             self.logger.warning("Dependency Track integration is not enabled.")
@@ -110,9 +110,9 @@ class Dtrack:
     def update_project_properties(self, properties: ProjectProperty):
         """Update Dependency Track project properties"""
         endpoint = self.client.url + f"/api/v1/project/{properties.uuid}/property"
-        doNotReactivate = False
+        do_not_reactivate = False
         if not properties.reactivate:
-            doNotReactivate = True
+            do_not_reactivate = True
         payload = [
             {
                 "propertyType": "STRING",
@@ -130,7 +130,7 @@ class Dtrack:
                 "propertyType": "BOOLEAN",
                 "groupName": "integrations",
                 "propertyName": "defectdojo.doNotReactivate",
-                "propertyValue": str(doNotReactivate).lower(),
+                "propertyValue": str(do_not_reactivate).lower(),
             },
         ]
 

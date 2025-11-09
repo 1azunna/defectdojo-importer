@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.fixture
 def mock_http_client(mocker):
     """Create a mock HttpClient for testing using pytest-mock."""
@@ -9,6 +10,7 @@ def mock_http_client(mocker):
     client.logger = mocker.Mock()
     client.headers = {}
     return client
+
 
 @pytest.fixture
 def mock_config(mocker):

@@ -27,7 +27,7 @@ class Engagements:
         except Exception as err:
             self.logger.error(
                 f"An error occured while getting engagement for name {engagement.name}.",
-                exc_info=True
+                exc_info=True,
             )
             raise err
         if count < 1:
@@ -47,7 +47,7 @@ class Engagements:
         except Exception as err:
             self.logger.error(
                 f"An error occured while creating engagement for name {engagement.name}.",
-                exc_info=True
+                exc_info=True,
             )
             raise err
         self.logger.info(f"Engagement created, id: {engagement_id}")

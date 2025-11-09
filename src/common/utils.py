@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 def get_files(filename: str | None = None, payload: bytes | None = None):
+    """Return a list of file tuples for HTTP file upload."""
     if filename is None:
         return [
             (
@@ -32,6 +33,7 @@ def get_files(filename: str | None = None, payload: bytes | None = None):
 
 
 def get_service_keys(service_keys_csv: str, position: int = 0):
+    """Return the service key at the given position from a CSV string."""
     service_keys = service_keys_csv.split(",", maxsplit=2)
     if len(service_keys) >= 1 + position:
         service_key = service_keys[position]

@@ -2,7 +2,7 @@ import re
 import responses
 import json
 from unittest.mock import patch
-from execute import main
+from importer.execute import main
 
 dojo_url = "https://defectdojo.example.test"
 dtrack_url = "https://dtrack.example.test"
@@ -20,7 +20,9 @@ class TestDtrackIntegration:
 
         get_response = json.dumps({"count": 0, "results": []}).encode()
         create_response = json.dumps({"id": 1, "name": "Test Item"}).encode()
-        dtrack_uuid_response = json.dumps({"uuid": "18841bb6-8f30-47a6-9fe2-caa4336e10d5"}).encode()
+        dtrack_uuid_response = json.dumps(
+            {"uuid": "18841bb6-8f30-47a6-9fe2-caa4336e10d5"}
+        ).encode()
         dtrack_config_property_response = json.dumps(
             [
                 {
@@ -56,7 +58,10 @@ class TestDtrackIntegration:
             status=200,
         )
         responses.add(
-            responses.GET, dtrack_url_property, body=dtrack_project_property_response, status=200
+            responses.GET,
+            dtrack_url_property,
+            body=dtrack_project_property_response,
+            status=200,
         )
         responses.add(responses.POST, dtrack_url_property, status=201)
         responses.add(responses.PUT, dtrack_url_property, status=201)

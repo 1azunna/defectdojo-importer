@@ -29,11 +29,11 @@ RUN adduser -D -h ${DATA_DIR} -u 1000 ${USERNAME} && \
     chown -R ${USERNAME}:${USERNAME} ${DATA_DIR}
 
 # Copy built wheel from builder stage
-COPY --from=builder /app/dist/*.whl /tmp/
+COPY --from=builder /app/dist/*.tar.gz /tmp/
 
 # Install the application
-RUN pip install --no-cache-dir /tmp/*.whl && \
-    rm -rf /tmp/*.whl
+RUN pip install --no-cache-dir /tmp/*.tar.gz && \
+    rm -rf /tmp/*.tar.gz
 
 WORKDIR ${DATA_DIR}
 USER ${USERNAME}

@@ -219,17 +219,17 @@ Open a pull request.
 
 #### Prerequisites
 
-1. Setup a python virtual environment using pyenv/venv
-
-```bash
-pyenv virtualenv 3.13 defectdojo-importer
-pyenv activate
-```
-
-2. Install poetry
+1. Install poetry
 
 ```bash
 pip install poetry
+```
+
+2. Setup a python virtual environment using poetry
+
+```bash
+poetry config virtualenvs.in-project true
+poetry install
 ```
 
 #### Step 1: Setup Githooks

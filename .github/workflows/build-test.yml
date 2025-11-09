@@ -15,6 +15,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
+
+      - name: fetch main
+        run: git fetch origin main:main --update-head-ok
 
       - name: Get changed files
         id: changed-files

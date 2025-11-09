@@ -75,7 +75,6 @@ pre_bump_hooks = [
   "scripts/remove-tags.sh"
 ]
 
-
 [tool.autohooks]
 mode = "poetry"
 pre-commit = ["autohooks.plugins.black", "autohooks.plugins.pylint", "autohooks.plugins.pytest"]

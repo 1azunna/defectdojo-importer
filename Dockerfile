@@ -13,7 +13,7 @@ COPY . .
 
 # Build the wheel
 RUN pip install --no-cache-dir wheel poetry && \
-    poetry build
+    poetry build -f sdist
 
 # Runtime stage
 FROM python:3.13-alpine AS runtime

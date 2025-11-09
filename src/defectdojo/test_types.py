@@ -19,7 +19,9 @@ class TestTypes:
             test_type_data = json.loads(response)
             count = test_type_data["count"]
         except Exception as err:
-            self.logger.error(f"An error occured while getting test type {test_type.name}.", exc_info=True)
+            self.logger.error(
+                f"An error occured while getting test type {test_type.name}.", exc_info=True
+            )
             raise err
         if count < 1:
             self.logger.warning(f"Test type {test_type.name} not found")
@@ -36,7 +38,9 @@ class TestTypes:
             test_type_data = json.loads(response)
             test_type_id = test_type_data["id"]
         except Exception as err:
-            self.logger.error(f"An error occured while creating test type {test_type.name}.", exc_info=True)
+            self.logger.error(
+                f"An error occured while creating test type {test_type.name}.", exc_info=True
+            )
             raise err
         self.logger.info(f"Test type successfully created, id: {test_type_id}")
         return test_type_id

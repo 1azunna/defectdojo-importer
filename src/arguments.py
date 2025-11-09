@@ -32,25 +32,15 @@ def main_parser():
     dd_config_group.add_argument(
         "--critical-product", action="store_true", help="Is product critical?"
     )
-    dd_config_group.add_argument(
-        "--product-platform", type=str, help="Product platform"
-    )
+    dd_config_group.add_argument("--product-platform", type=str, help="Product platform")
 
     # Test Configuration Group for parent parser
     test_config_group = parent_parser.add_argument_group("Test Configuration")
-    test_config_group.add_argument(
-        "--engagement-name", type=str, help="Engagement name"
-    )
+    test_config_group.add_argument("--engagement-name", type=str, help="Engagement name")
     test_config_group.add_argument("--test-name", type=str, help="Test name")
-    test_config_group.add_argument(
-        "--test-type-name", type=str, help="Test type name"
-    )
-    test_config_group.add_argument(
-        "--static-tool", action="store_true", help="Is static tool?"
-    )
-    test_config_group.add_argument(
-        "--dynamic-tool", action="store_true", help="Is dynamic tool?"
-    )
+    test_config_group.add_argument("--test-type-name", type=str, help="Test type name")
+    test_config_group.add_argument("--static-tool", action="store_true", help="Is static tool?")
+    test_config_group.add_argument("--dynamic-tool", action="store_true", help="Is dynamic tool?")
     test_config_group.add_argument(
         "--tool-configuration-name", type=str, help="Tool configuration name"
     )
@@ -132,12 +122,8 @@ def main_parser():
         add_help=False,
     )
     # Add dtrack-specific arguments first
-    dtrack_parser.add_argument(
-        "--dtrack-api-url", type=str, help="Dependency-Track API URL"
-    )
-    dtrack_parser.add_argument(
-        "--dtrack-api-key", type=str, help="Dependency-Track API Key"
-    )
+    dtrack_parser.add_argument("--dtrack-api-url", type=str, help="Dependency-Track API URL")
+    dtrack_parser.add_argument("--dtrack-api-key", type=str, help="Dependency-Track API Key")
     dtrack_parser.add_argument(
         "--dtrack-project-name", type=str, help="Dependency-Track project name"
     )

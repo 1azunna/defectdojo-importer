@@ -18,7 +18,8 @@ class ToolConfigurations:
             count = tool_config_data["count"]
         except Exception as err:
             self.logger.error(
-                f"An error occured while getting tool configuration details for {name}.", exc_info=True
+                f"An error occured while getting tool configuration details for {name}.",
+                exc_info=True,
             )
             raise err
         if count < 1:

@@ -19,7 +19,7 @@ class ProductTypes:
         except Exception as err:
             self.logger.error(
                 f"An error occured while getting product type for name {product_type.name}.",
-                exc_info=True
+                exc_info=True,
             )
             raise err
         if count < 1:
@@ -39,7 +39,7 @@ class ProductTypes:
         except Exception as err:
             self.logger.error(
                 f"An error occured while creating product type for name {product_type.name}.",
-                exc_info=True
+                exc_info=True,
             )
             raise err
         self.logger.info(f"Product type created, id: {product_type_id}")

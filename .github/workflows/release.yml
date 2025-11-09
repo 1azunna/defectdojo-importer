@@ -12,8 +12,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        persist-credentials: false
         fetch-depth: 0
+        fetch-tags: true
+
+    - name: fetch main
+      run: git fetch origin main:main --update-head-ok
     - name: Set up Python
       uses: actions/setup-python@v5
       with:

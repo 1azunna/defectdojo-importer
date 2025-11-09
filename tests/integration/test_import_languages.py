@@ -2,7 +2,7 @@ import re
 import json
 from unittest.mock import patch
 import responses
-from execute import main
+from importer.execute import main
 
 dojo_url = "https://defectdojo.example.test"
 mock_url = re.compile(f"{dojo_url}/api/v2/.*")

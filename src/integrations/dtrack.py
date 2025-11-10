@@ -32,7 +32,7 @@ class Dtrack:
             if config_property["groupName"] == "integrations":
                 if config_property["propertyName"] == "defectdojo.enabled":
                     enabled = config_property["propertyValue"].lower()
-                break
+                    break
         if enabled != "true":
             self.logger.warning("Dependency Track integration is not enabled.")
             return False
@@ -87,7 +87,8 @@ class Dtrack:
             uuid = project_data["uuid"]
         except Exception as err:
             self.logger.error(
-                "An error occured while getting the dependency track project %s.", project.name
+                "An error occured while getting the dependency track project %s.",
+                project.name,
             )
             raise err
         self.logger.info("Dependency Track project found, uuid: %s", uuid)
@@ -149,6 +150,10 @@ class Dtrack:
                 self.client.request("POST", endpoint, data=json.dumps(item))
             else:
                 # Create a new property
-                self.logger.info("Creating Dependency Track project property: %s", property_name)
+                self.logger.info(
+                    "Creating Dependency Track project property: %s", property_name
+                )
                 self.client.request("PUT", endpoint, data=json.dumps(item))
-        return self.logger.info("Dependency Track project properties updated successfully")
+        return self.logger.info(
+            "Dependency Track project properties updated successfully"
+        )

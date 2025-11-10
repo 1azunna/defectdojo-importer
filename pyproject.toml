@@ -6,7 +6,7 @@ build-backend = "poetry_dynamic_versioning.backend"
 name = "defectdojo-importer"
 version = "0.0.2"
 description = "DefectDojo Importer Tool"
-license = "Proprietary"
+license = "Apache-2.0"
 authors = [
     "Azunna Ikonne <ikonnea@gmail.com>"
 ]

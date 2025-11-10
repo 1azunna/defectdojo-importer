@@ -4,7 +4,7 @@ build-backend = "poetry_dynamic_versioning.backend"
 
 [tool.poetry]
 name = "defectdojo-importer"
-version = "0.0.2"
+version = "0.0.3"
 description = "DefectDojo Importer Tool"
 license = "Apache-2.0"
 authors = [

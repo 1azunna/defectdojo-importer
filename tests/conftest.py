@@ -1,4 +1,17 @@
+import os
 import pytest
+from dotenv import dotenv_values
+
+
+@pytest.fixture
+def mock_env():
+    """Patch env_config to use the test env dict as in config.py's test block."""
+
+    test_env = {
+        **os.environ,
+        **dotenv_values(".env.sample"),
+    }
+    return test_env
 
 
 @pytest.fixture

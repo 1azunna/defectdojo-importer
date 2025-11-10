@@ -17,7 +17,9 @@ def setup_product_engagement(defectdojo: DefectDojo, config: Config) -> dict:
     """Setup and validate engagement, product, test type, and API scan configuration."""
 
     # Get Product type and Product
-    product_type = ProductType(config.product_type_name, critical_product=config.critical_product)
+    product_type = ProductType(
+        config.product_type_name, critical_product=config.critical_product
+    )
     product_type_id = defectdojo.product_types.get_or_create(product_type)
     product = Product(config.product_name, product_type_id)
     product_id = defectdojo.products.get_or_create(product)
@@ -43,7 +45,9 @@ def setup_test(defectdojo: DefectDojo, config: Config, engagement_config: dict) 
     """Setup and validate test type and test."""
 
     test_type = TestType(
-        str(config.test_type_name), static_tool=config.static_tool, dynamic_tool=config.dynamic_tool
+        str(config.test_type_name),
+        static_tool=config.static_tool,
+        dynamic_tool=config.dynamic_tool,
     )
     valid_test_type = defectdojo.test_types.get(test_type)
 
@@ -95,7 +99,9 @@ def import_findings(
     files = utils.get_files(filename)
     api_scan_id = None
     if config.tool_configuration_name:
-        tool_configuration = defectdojo.tool_configurations.get(config.tool_configuration_name)
+        tool_configuration = defectdojo.tool_configurations.get(
+            config.tool_configuration_name
+        )
         if not tool_configuration:
             raise ConfigurationError(
                 f"Tool configuration '{config.tool_configuration_name}' not found."
@@ -103,9 +109,15 @@ def import_findings(
         api_scan = ApiScanConfig(
             engagement_config["product_id"],
             tool_configuration,
-            service_key_1=utils.get_service_keys(str(config.tool_configuration_params), 0),
-            service_key_2=utils.get_service_keys(str(config.tool_configuration_params), 1),
-            service_key_3=utils.get_service_keys(str(config.tool_configuration_params), 2),
+            service_key_1=utils.get_service_keys(
+                str(config.tool_configuration_params), 0
+            ),
+            service_key_2=utils.get_service_keys(
+                str(config.tool_configuration_params), 1
+            ),
+            service_key_3=utils.get_service_keys(
+                str(config.tool_configuration_params), 2
+            ),
         )
         api_scan_id = defectdojo.product_api_scan_configuration.get_or_create(api_scan)
 
@@ -130,7 +142,9 @@ def import_findings(
         defectdojo.scans.reupload(scan, files)
 
 
-def integration_findings(client: HttpClient, config: Config, engagement_id: int, type: str):
+def integration_findings(
+    client: HttpClient, config: Config, engagement_id: int, type: str
+):
     """Integrate external tool findings into defectdojo API."""
 
     match type:
@@ -142,7 +156,6 @@ def integration_findings(client: HttpClient, config: Config, engagement_id: int,
                     "Dependency Track - DefectDojo integration is not enabled. Attempting to enable it."
                 )
                 integration_is_enabled = dtrack.update_integration(config)
-                return
 
             if integration_is_enabled:
                 dtrack_project = Project(

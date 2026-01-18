@@ -2,6 +2,7 @@ from http_client import HttpClient
 
 
 class Languages:
+    """This class handles language and lines of code imports."""
 
     def __init__(self, client: HttpClient):
         self.client = client
@@ -23,5 +24,5 @@ class Languages:
                 headers=headers,
             )
             self.logger.info("Language report imported successfully")
-        except Exception as err:
+        except Exception:
             self.logger.error("Import Failed!", exc_info=True)

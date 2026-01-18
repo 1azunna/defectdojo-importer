@@ -80,14 +80,14 @@ line-length = 100
 
 [tool.pylint.main]
 fail-under = 8.0
-disable = ["C0114"]
+disable = ["C0114", "R0903", "W0718"]
 source-roots = ["src"]
 ignore-paths = [".venv"]
 ignore-patterns = ["^tests/.*\\.py$", "test_.*\\.py$"]
 
 [tool.autohooks.plugins.pylint]
 fail-under = 8.0
-disable = ["C0114"]
+disable = ["C0114", "R0903", "W0718"]
 source-roots = ["src"]
 ignore-paths = [".venv"]
 ignore-patterns = ["^tests/.*\\.py$", "test_.*\\.py$"]

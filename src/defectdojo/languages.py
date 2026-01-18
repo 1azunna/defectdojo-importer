@@ -2,8 +2,6 @@ from http_client import HttpClient
 
 
 class Languages:
-    """This class handles language and lines of code imports."""
-
     def __init__(self, client: HttpClient):
         self.client = client
         self.logger = self.client.logger

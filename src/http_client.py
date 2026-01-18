@@ -25,10 +25,8 @@ class HttpClient:
 
     def request(self, method: str, url: str, **kwargs) -> str:
         """Handle HTTP requests for different methods."""
-        headers = self.headers
-        if "headers" in kwargs:
-            headers = {**(self.headers or {}), **(kwargs.get("headers") or {})}
-            del kwargs["headers"]
+        headers = {**(self.headers or {}), **(kwargs.pop("headers", {}) or {})}
+        headers = {k: v for k, v in headers.items() if v is not None}
 
         # Set default timeout based on method
         timeout = 300 if method.upper() == "POST" else 120

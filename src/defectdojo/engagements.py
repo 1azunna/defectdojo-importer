@@ -40,7 +40,7 @@ class Engagements:
 
     def create(self, engagement: Engagement) -> int:
         """Create an engagement."""
-        response = self.client.request("POST", self.endpoint, data=engagement.to_dict())
+        response = self.client.request("POST", self.endpoint, data=engagement.to_json())
         try:
             engagement_data = json.loads(response)
             engagement_id = engagement_data["id"]

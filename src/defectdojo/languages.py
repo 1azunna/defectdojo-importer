@@ -2,7 +2,6 @@ from http_client import HttpClient
 
 
 class Languages:
-
     def __init__(self, client: HttpClient):
         self.client = client
         self.logger = self.client.logger
@@ -11,11 +10,17 @@ class Languages:
     def upload(self, product: int, files: list):
         """Import a language and lines of code report."""
         endpoint = self.client.url + "/api/v2/import-languages/"
-        if "Content-Type" in self.headers:
-            del self.headers["Content-Type"]
-        self.client.headers = self.headers
+        headers = self.headers.copy()
+        if "Content-Type" in headers:
+            headers["Content-Type"] = None
         try:
-            self.client.request("POST", endpoint, data={"product": product}, files=files)
+            self.client.request(
+                "POST",
+                endpoint,
+                data={"product": product},
+                files=files,
+                headers=headers,
+            )
             self.logger.info("Language report imported successfully")
-        except Exception as err:
+        except Exception:
             self.logger.error("Import Failed!", exc_info=True)
